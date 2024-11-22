@@ -35,7 +35,13 @@ const EditCategory = () => {
 
     return (
         <div>
-            <h2>Edit Category</h2>
+            {/* <h2>Edit Category</h2> */}
+            <h1 className="text-4xl font-bold mb-6 text-center">
+  <p className="inline  text-[#172554] px-1">Edit</p>
+  <p className="inline text-[#EF8120]">Category</p>
+  </h1>
+
+
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"

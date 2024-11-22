@@ -39,6 +39,7 @@ const AllProduct = () => {
     axios.delete(`http://localhost:3001/deleteuser/${id}`)
       .then(() => {
         setProducts(products.filter(product => product.id !== id));
+        window.alert('Products have been deleted Successfully');
       })
       .catch(error => {
         console.error("Error deleting product:", error);
@@ -47,7 +48,12 @@ const AllProduct = () => {
 
   return (
     <div className="w-3xl m-2 p-5 bg-white rounded-lg shadow-md">
-      <h2 className="text-4xl font-semibold text-center mb-4">All Products</h2>
+      {/* <h2 className="text-4xl font-semibold text-center mb-4">All Products</h2> */}
+      <h1 className="text-4xl font-bold mb-6 text-center">
+  <p className="inline  text-[#172554] px-1">All </p>
+  <p className="inline text-[#EF8120]">Products</p>
+  </h1>
+
       <table className="min-w-full  border border-gray-300  ">
         <thead className="bg-gray-200  "
         style={{backgroundColor:'#86C3D7'}}>

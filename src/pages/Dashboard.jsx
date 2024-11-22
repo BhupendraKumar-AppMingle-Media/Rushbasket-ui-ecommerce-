@@ -75,7 +75,12 @@ const Dashboard = () => {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen  ">
-      <h1 className="text-4xl font-bold mb-6 text-center">E-commerce Dashboard</h1>
+      {/* <h1 className="text-4xl font-bold mb-6 text-center">   <p className="inline  bg-{#172554}"> Rush</p>  <p className="inline "> Baskets</p></h1> */}
+      <h1 className="text-4xl font-bold mb-6 text-center">
+  <p className="inline  text-[#172554] px-1">Rush</p>
+  <p className="inline text-[#EF8120]">Baskets</p>
+  
+</h1>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">

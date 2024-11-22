@@ -1,69 +1,74 @@
-
 import { useState, useEffect } from "react";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddNotification = ({ onClose }) => {
+const EditNotification = () => {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [link, setLink] = useState("");
   const [targetAudience, setTargetAudience] = useState("All Users");
   const [scheduleTime, setScheduleTime] = useState("");
   const [sendInstantly, setSendInstantly] = useState(true);
-  const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
+  const { id } = useParams(); // Assume the ID of the notification is passed as a route parameter
+
+  useEffect(() => {
+    // Fetch notification details by ID
+    axios.get(`http://localhost:3001/pushNotification/${id}`)
+      .then((response) => {
+        const { title, message, link, sentTo, scheduleTime } = response.data;
+        setTitle(title);
+        setMessage(message);
+        setLink(link);
+        setTargetAudience(
+          sentTo === "all" ? "All Users" :
+          sentTo === "active" ? "Active Users" :
+          "Specific User Groups"
+        );
+        setScheduleTime(scheduleTime || "");
+        setSendInstantly(!scheduleTime); // If scheduleTime exists, disable instant sending
+      })
+      .catch((error) => {
+        console.error("Error fetching notification details:", error);
+      });
+  }, [id]);
 
   const handleBack = () => {
     navigate(-1);
   };
 
-  // Fetch all notifications on component mount
-  useEffect(() => {
-    axios.get('http://localhost:3001/pushNotification')
-      .then(response => {
-        setNotifications(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching notifications:', error);
-      });
-  }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    const sentTo = targetAudience === "All Users" ? "all" : 
+
+    const sentTo = targetAudience === "All Users" ? "all" :
                    targetAudience === "Active Users" ? "active" : "specific";
 
-    const newNotification = {
+    const updatedNotification = {
       title,
       message,
       sentTo,
       link,
-      userId: [], // Add specific user IDs if needed
+      scheduleTime: sendInstantly ? null : scheduleTime,
     };
 
-    axios.post('http://localhost:3001/pushNotification', newNotification)
-      .then(response => {
-        console.log('Notification sent:', response.data);
-        setNotifications([...notifications, response.data]);
-        setTitle("");
-        setMessage("");
-        setLink("");
-        setTargetAudience("All Users");
-        setScheduleTime("");
-        setSendInstantly(true);
-        onClose();
+    axios.put(`http://localhost:3001/pushNotification/${id}`, updatedNotification)
+      .then(() => {
+        console.log("Notification updated successfully");
+        navigate("/push-notifications"); // Navigate back to notifications list
       })
-      .catch(error => {
-        console.error('Error sending notification:', error);
+      .catch((error) => {
+        console.error("Error updating notification:", error);
       });
   };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
-      <h3 className="text-xl font-semibold mb-4">Create New Notification</h3>
-
-   
+      {/* <h3 className="text-xl font-semibold mb-4">Edit Notification</h3> */}
+      <h1 className="text-4xl font-bold mb-6 text-center">
+  <p className="inline  text-[#172554] px-1">Edit</p>
+  <p className="inline text-[#EF8120]">Notification</p>
+  
+</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -94,7 +99,7 @@ const AddNotification = ({ onClose }) => {
             value={link}
             onChange={(e) => setLink(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-md"
-            placeholder="provide link here"
+            placeholder="Provide link here"
             required
           />
         </div>
@@ -136,10 +141,10 @@ const AddNotification = ({ onClose }) => {
 
         <button
           type="submit"
-          className="px-4 py-2  text-white rounded-md shadow-md hover:bg-green-600 transition duration-200"
+          className="px-4 py-2 text-white rounded-md shadow-md hover:bg-green-600 transition duration-200"
           style={{ backgroundColor: "#172554" }}
         >
-          Submit
+          Update
         </button>
 
         <button
@@ -154,5 +159,4 @@ const AddNotification = ({ onClose }) => {
   );
 };
 
-export default AddNotification;
-
+export default EditNotification;

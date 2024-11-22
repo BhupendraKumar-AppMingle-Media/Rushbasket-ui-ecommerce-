@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const AddPopupsForm = ({ onAddPopup }) => {
+const EditPopups = ({ onAddPopup }) => {
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
   const [image, setImage] = useState(null);
@@ -56,11 +56,11 @@ const AddPopupsForm = ({ onAddPopup }) => {
   };
 
   return (
-    <div className="bg-white shadow-md rounded-lg p-6 mb-6   font-semibold">
+    <div className="bg-white font-semibold shadow-md rounded-lg p-6 mb-6">
       <h2 className="text-3xl font-semibold mb-4 text-center"> New Popup</h2>
       <form onSubmit={(e) => e.preventDefault()}>
         <div className="mb-4">
-          <label className="block  mb-2">Title</label>
+          <label className="block font-semibold mb-2">Title</label>
           <input
             type="text"
             className="border rounded-lg w-full p-2"
@@ -127,7 +127,7 @@ const AddPopupsForm = ({ onAddPopup }) => {
 
         {trigger === 'time_based' && (
           <div className="mb-4">
-            <label className="block  mb-2">Time (in seconds)</label>
+            <label className="block mb-2">Time (in seconds)</label>
             <input
               type="number"
               className="border rounded-lg w-full p-2"
@@ -149,7 +149,7 @@ const AddPopupsForm = ({ onAddPopup }) => {
         </div>
 
         <div className="mb-4">
-          <label className="block  mb-2">End Time</label>
+          <label className="block   mb-2">End Time</label>
           <input
             type="datetime-local"
             className="border rounded-lg w-full p-2"
@@ -171,4 +171,4 @@ const AddPopupsForm = ({ onAddPopup }) => {
   );
 };
 
-export default AddPopupsForm;
+export default EditPopups;

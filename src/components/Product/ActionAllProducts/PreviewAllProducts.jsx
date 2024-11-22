@@ -30,9 +30,14 @@ const PreviewAllProducts = () => {
 
   return (
     <div className="w-full max-w-5xl mx-auto bg-white p-10 rounded-lg shadow-lg">
-      <h2 className="text-3xl font-bold mb-8 text-center" style={{ color: "#172554" }}>
+      {/* <h2 className="text-3xl font-bold mb-8 text-center" style={{ color: "#172554" }}>
         Product Preview
-      </h2>
+      </h2> */}
+        <h1 className="text-4xl font-bold mb-6 text-center">
+  <p className="inline  text-[#172554] px-1">Product</p>
+  <p className="inline text-[#EF8120]">Preview</p>
+  </h1>
+
       <div className="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0 md:space-x-8">
         <div className="flex-1 space-y-6">
           <div>

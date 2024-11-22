@@ -5,7 +5,7 @@ import axios from "axios";
 const Profile = () => {
   const [profileImage, setProfileImage] = useState(null);
   const [formData, setFormData] = useState({
-    companyName: "",  // Added for integration with the API
+    Name: "",  // Added for integration with the API
     email: "",
     phone: "",
     password: "",
@@ -42,7 +42,7 @@ const Profile = () => {
 
     try {
       const payload = {
-        companyName: formData.companyName,
+        Name: formData.Name,
         email: formData.email,
         phone: formData.phone,
         password: formData.password,
@@ -85,7 +85,7 @@ const Profile = () => {
             onChange={handleImageUpload}
           />
         </div>
-        <h1 className="mt-4 text-xl font-semibold">{formData.companyName || "Company Name"}</h1>
+        <h1 className="mt-4 text-xl font-semibold">{formData.Name || ""}</h1>
       </div>
 
       {/* Form */}
@@ -94,8 +94,8 @@ const Profile = () => {
         <div className="mb-4">
           <input
             type="text"
-            name="companyName"
-            placeholder="Company Name"
+            name="Name"
+            placeholder=" Name"
             className="w-full px-3 py-2 border border-orange-300 rounded-md focus:outline-none focus:border-orange-500"
             value={formData.companyName}
             onChange={handleChange}

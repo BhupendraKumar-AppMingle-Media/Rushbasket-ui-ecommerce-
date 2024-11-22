@@ -89,8 +89,12 @@ const Settings = () => {
   return (
     <div className="p-10 bg-gray-100 min-h-screen">
       {/* Title */}
-      <h1 className="text-5xl font-bold text-gray-900 mb-6 text-center">Slider</h1>
-
+      {/* <h1 className="text-4xl font-bold text-gray-900 mb-6 text-center">Slider</h1> */}
+       
+      <h1 className="text-4xl font-bold mb-6 text-center">
+  <p className="inline  text-[#172554] px-1">Image</p>
+  <p className="inline text-[#EF8120]">Slider</p>
+  </h1>
       {/* Upload Button */}
       <div className="mb-6">
         <label className="block text-lg font-bold text-gray-900 mb-2">

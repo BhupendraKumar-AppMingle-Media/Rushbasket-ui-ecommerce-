@@ -140,7 +140,12 @@ const AddProductCategories = () => {
 
   return (
     <div className="container mx-auto mt-5 p-10">
-      <h2 className="text-2xl  font-bold mb-4 ml-9">Add New Category</h2>
+      {/* <h2 className="text-2xl  font-bold mb-4 ml-9">Add New Category</h2> */}
+
+      <h1 className="text-4xl font-bold mb-6 text-center">
+  <p className="inline  text-[#172554] px-1">+ New</p>
+  <p className="inline text-[#EF8120]">Category</p>
+  </h1>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg mx-10 px-8 pt-6 pb-8 mb-4">
        
       <div className="mb-4">

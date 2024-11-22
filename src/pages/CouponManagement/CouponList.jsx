@@ -38,14 +38,21 @@ const CouponList = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-5 bg-white rounded-lg shadow-lg">
+        {/* <h2 className="text-2xl font-bold text-center ">Coupon Management</h2> */}
+        <h1 className="text-4xl font-bold mb-6 text-center">
+  <p className="inline  text-[#172554] px-1">Coupon</p>
+  <p className="inline text-[#EF8120]">Management</p>
+  
+</h1>
       <div className="flex justify-between mt-8 mb-6">
-        <h2 className="text-2xl font-bold ">Coupon Management</h2>
+
+
         <Link
           to="/coupon-form"
-          className="text-white px-5 py-2 rounded-lg hover:bg-green-600 transition duration-200 ease-in-out shadow-md"
+          className="text-white px-3 py-3 rounded-lg hover:bg-green-600 transition duration-200 ease-in-out shadow-md"
           style={{ backgroundColor: "#172552" }}
         >
-          Create New Coupon
+         + Create New Coupon
         </Link>
       </div>
       <table className="min-w-full bg-white border border-gray-300 rounded-lg">

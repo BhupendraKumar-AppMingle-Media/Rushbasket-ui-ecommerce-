@@ -3,7 +3,7 @@
 const SupportManagement = () => {
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6 text-gray-800">Support Management</h1>
+      <h1 className="text-3xl font-bold mb-6  text-center text-gray-800">Support Management</h1>
       
       {/* Ticket Table */}
       <div className="bg-white shadow-lg rounded-lg p-6">

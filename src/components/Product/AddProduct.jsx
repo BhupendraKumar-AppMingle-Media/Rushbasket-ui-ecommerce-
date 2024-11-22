@@ -86,13 +86,17 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 p-8 bg-white rounded-lg shadow-lg">
-      <h2 className="text-3xl font-semibold text-center mb-5">Add Product</h2>
-
+    <div className="max-w-4xl mx-auto mt-10 p-8 bg-white rounded-lg shadow-lg   ">
+      {/* <h2 className="text-3xl font-semibold text-center mb-5">Add Product</h2> */}
+      <h1 className="text-4xl font-bold mb-6 text-center">
+  <p className="inline  text-[#172554] px-1">Add</p>
+  <p className="inline text-[#EF8120]">Products</p>
+  
+</h1> 
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         {/* Product Title */}
         <div className="mb-5">
-          <label className="block text-base font-medium ">Product Title*</label>
+          <label className="block text-base font-semibold ">Product Title*</label>
           <input
             type="text"
             value={productName}
@@ -104,7 +108,7 @@ const AddProduct = () => {
 
         {/* Category and Subcategory */}
         <div className="mb-5">
-          <label className="block text-base font-medium ">Category<span className="">*</span></label>
+          <label className="block text-base font-semibold">Category<span className="">*</span></label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -122,7 +126,7 @@ const AddProduct = () => {
 
         {category && (
           <div className="mb-5">
-            <label className="block text-base font-medium ">Sub-Category</label>
+            <label className="block text-base font-semibold ">Sub-Category</label>
             <select
               value={subCategory}
               onChange={(e) => setSubCategory(e.target.value)}
@@ -141,7 +145,7 @@ const AddProduct = () => {
 
         {/* MRP and Sell Price */}
         <div className="mb-5">
-          <label className="block text-base font-medium ">MRP*</label>
+          <label className="block text-base font-semibold ">MRP*</label>
           <input
             type="number"
             value={mrp}
@@ -151,7 +155,7 @@ const AddProduct = () => {
           />
         </div>
         <div className="mb-5">
-          <label className="block text-base font-medium ">Sell Price*</label>
+          <label className="block text-base font-semibold ">Sell Price*</label>
           <input
             type="number"
             value={sellPrice}
@@ -163,7 +167,7 @@ const AddProduct = () => {
 
         {/* Discount Type */}
         <div className="mb-5">
-          <label className="block text-base font-medium">Discount Type</label>
+          <label className="block text-base font-semibold">Discount Type</label>
           <div className="flex items-center mt-2">
             <label className="mr-4">
               <input
@@ -197,7 +201,7 @@ const AddProduct = () => {
 
        {/* Weight */}
        <div className="mb-5">
-          <label className="block text-base font-medium ">
+          <label className="block text-base font-semibold ">
             Weight ({weightUnit.toUpperCase()})*
           </label>
           <div className="flex mt-2">
@@ -222,7 +226,7 @@ const AddProduct = () => {
 
                 {/* quantitiy */}
                 <div>
-            <label className="block text-base font-medium ">Quantity*</label>
+            <label className="block text-base font-semibold ">Quantity*</label>
             <input
               type="number"
               className="mt-2 block w-full  border border-orange-300 rounded-md focus:outline-none focus:border-blue-500 shadow-sm p-2 text-lg"
@@ -234,7 +238,7 @@ const AddProduct = () => {
 
                   {/* optional rhega  sku*/}
                   <div className="mb-5">
-          <label className="block text-base font-medium ">SKU</label>
+          <label className="block text-base font-semibold ">SKU</label>
           <input
             type="text"
             value={sku}
@@ -249,7 +253,7 @@ const AddProduct = () => {
             
        {/* Description */}
        <div className="mb-5">
-          <label className="block text-base font-medium ">Product Description</label>
+          <label className="block text-base font-semibold ">Product Description</label>
           <ReactQuill
             value={description}
             onChange={setDescription}
@@ -266,7 +270,7 @@ const AddProduct = () => {
 
 
         <div className="mb-5 pt-8">
-          <label className="block text-base font-medium">Images</label>
+          <label className="block text-base font-semibold">Images</label>
           <input
             type="file"
             id="images"
@@ -282,13 +286,15 @@ const AddProduct = () => {
           >
             + Add More Images
           </button>
+
+
           <div className="grid grid-cols-3 gap-4 mt-4">
             {images.map((image, index) => (
               <div key={index} className="relative">
                 <img
                   src={URL.createObjectURL(image)}
                   alt={`preview-${index}`}
-                  className="w-full h-32 object-cover rounded-md"
+                  className="w-full h-auto object-cover rounded-md"
                 />
                 <button
                   type="button"
@@ -305,7 +311,7 @@ const AddProduct = () => {
 
         
         <div className="mb-5 ">
-          <label className="block text-base font-medium ">Visibility*</label>
+          <label className="block text-base font-semibold ">Visibility*</label>
           <div className="flex mt-2">
             <label className="mr-4">
               <input
@@ -337,8 +343,7 @@ const AddProduct = () => {
         <div className="text-center mt-6">
           <button
             type="submit"
-            className="inline-block  text-white font-semibold px-6 py-2.5 rounded-md shadow-md hover:bg-[#EF8120]"
-            style={{backgroundColor:'#172554'}}
+            className=" bg-[#172554] text-white px-4 py-2 rounded hover:bg-[#EF8120] font-semibold "
           >
             Add Product
           </button>

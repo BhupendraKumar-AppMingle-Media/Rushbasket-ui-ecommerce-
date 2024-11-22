@@ -60,8 +60,11 @@ const PendingOrder = () => {
     <>
       <OrderNavBtns />
       <div>
-        <h1 className="text-4xl font-semibold my-5 text-center">Pending Order</h1>
-
+        {/* <h1 className="text-4xl font-semibold my-5 text-center">Pending Order</h1> */}
+        <h1 className="text-4xl font-bold mb-6 text-center">
+  <p className="inline  text-[#172554] px-1">Pending</p>
+  <p className="inline text-[#EF8120]">Order</p>
+  </h1>
         <div className="container mx-auto p-4">
           <div className="overflow-x-auto">
             <table className="table-auto w-full border-collapse">
@@ -78,7 +81,7 @@ const PendingOrder = () => {
               </thead>
               <tbody>
                 {data.map((order, index) => (
-                  <tr key={index} className="border-b hover:bg-gray-300 transition">
+                  <tr key={index} className="border-b hover:bg-[#fff4ea] transition">
                     <td className="p-2">{order.orderId}</td>
                     <td className="p-2">{order.created}</td>
                     <td className="p-2">{order.customerName}</td>

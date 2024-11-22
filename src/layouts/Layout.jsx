@@ -46,10 +46,12 @@ import Transactions from "../pages/Transactions.jsx";
 import PushNotifications from "../pages/PushNotification/PushNotifications.jsx";
 import AddNotifications from "../pages/PushNotification/AddNotifications.jsx";
 import ViewNotification from "../pages/PushNotification/ViewNotification.jsx";
+import EditNotification from "../pages/PushNotification/EditNotification.jsx";
 
 // popups
 import PopupsManage from "../pages/PopupsManagement/PopupsManage.jsx";
 import AddPopupsForm from "../pages/PopupsManagement/AddPopupsForm.jsx";
+import EditPopups from "../pages/PopupsManagement/EditPopups.jsx";
 // coupon
 import CouponManage from "../pages/CouponManagement/Coupon.jsx";
 import CouponManageForm from "../pages/CouponManagement/CouponForm.jsx";
@@ -154,21 +156,29 @@ const Layout = () => {
 
         <Route path="/login" element={<Login />} />
         <Route path="/verificationadmin" element={<VerificationLogin />} />
+
+
         {/* push-notification */}
         <Route path="/push-notifications" element={<PushNotifications />} />
         <Route path="/add-push-notifications" element={<AddNotifications />} />
         <Route path="/view-push-notifications" element={<ViewNotification />} />
+        <Route path="/edit-push-notifications" element={<EditNotification />} />
+
+
 
         {/* popups */}
         <Route path="/popups-management" element={<PopupsManage />} />
         <Route path="/addpopupsform" element={<AddPopupsForm />} />
         <Route path="/earning-report" element={<EarningReport />} />
-        {/* coupon manage */}
+        <Route path="/edit-popups" element={<EditPopups />} />
+
+
+        {/* coupon management */}
         <Route path="/coupon-management" element={<CouponManage />} />
         <Route path="/coupon-form" element={<CouponManageForm />} />
-        {/* support managemnt */}
+        {/* support management */}
         <Route path="/support" element={<SupportManage />} />
-        {/* delivery managemnt */}
+        {/* delivery management */}
         <Route path="/delivery-management" element={<DeliveryManagement />} />
         <Route path="/delivery-list" element={< DeliveryList />} />
         <Route
