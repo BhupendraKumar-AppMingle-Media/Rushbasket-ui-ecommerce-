@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { AiOutlineAreaChart } from "react-icons/ai";
 import { FaMoneyBillWave, FaUserCircle } from "react-icons/fa";
@@ -26,12 +25,12 @@ const SideBar = () => {
 
   const sideBarDatas = [
     {
-      icon: <MdDashboard  style={{ fontSize: "1.25rem" , color: "#EF8120" }} />,
+      icon: <MdDashboard style={{ fontSize: "1.25rem", color: "#EF8120" }} />,
       title: "Dashboard",
       link: "/",
     },
     {
-      icon: <GrProductHunt style={{ fontSize: "1.25rem" ,color: "#EF8120"}} />,
+      icon: <GrProductHunt style={{ fontSize: "1.25rem", color: "#EF8120" }} />,
       title: "Products Management",
       link: "/products",
       dropdown: [
@@ -42,13 +41,15 @@ const SideBar = () => {
       ],
     },
     {
-      icon: <FaCartShopping style={{ fontSize: "1.25rem" ,color: "#EF8120"}} />,
+      icon: (
+        <FaCartShopping style={{ fontSize: "1.25rem", color: "#EF8120" }} />
+      ),
       title: "Orders Management",
       link: "/order-active",
       dropdown: [{ title: "Active Order", link: "/order-active" }],
     },
     {
-      icon: <FaUsers style={{ fontSize: "1.25rem",color: "#EF8120" }} />,
+      icon: <FaUsers style={{ fontSize: "1.25rem", color: "#EF8120" }} />,
       title: "Customers Management",
       // link: "/customers",
       dropdown: [
@@ -58,37 +59,51 @@ const SideBar = () => {
       ],
     },
     {
-      icon: <MdRateReview style={{ fontSize: "1.25rem",color: "#EF8120" }} />,
+      icon: <MdRateReview style={{ fontSize: "1.25rem", color: "#EF8120" }} />,
       title: "Reviews Management",
       link: "/reviews",
     },
     {
-      icon: <HiMiniCurrencyRupee style={{ fontSize: "1.25rem",color: "#EF8120" }} />,
+      icon: (
+        <HiMiniCurrencyRupee
+          style={{ fontSize: "1.25rem", color: "#EF8120" }}
+        />
+      ),
       title: "Transactions",
       link: "/transactions",
     },
     {
-      icon: <AiOutlineAreaChart style={{ fontSize: "1.25rem",color: "#EF8120" }} />,
+      icon: (
+        <AiOutlineAreaChart style={{ fontSize: "1.25rem", color: "#EF8120" }} />
+      ),
       title: "Analytics",
       link: "/analytics",
     },
     {
-      icon: <IoNotificationsSharp style={{ fontSize: "1.25rem",color: "#EF8120" }} />,
+      icon: (
+        <IoNotificationsSharp
+          style={{ fontSize: "1.25rem", color: "#EF8120" }}
+        />
+      ),
       title: "Push Notification",
       link: "/push-notifications",
     },
     {
-      icon: < MdNotificationsOff style={{ fontSize: "1.25rem",color: "#EF8120" }} />,
+      icon: (
+        <MdNotificationsOff style={{ fontSize: "1.25rem", color: "#EF8120" }} />
+      ),
       title: "Popups Management",
       link: "/popups-management",
     },
     {
-      icon: <FaMoneyBillWave style={{ fontSize: "1.25rem" ,color: "#EF8120"}} />,
+      icon: (
+        <FaMoneyBillWave style={{ fontSize: "1.25rem", color: "#EF8120" }} />
+      ),
       title: "Earning Report",
       link: "/earning-report",
     },
     {
-      icon: <FaUsers style={{ fontSize: "1.25rem",color: "#EF8120" }} />,
+      icon: <FaUsers style={{ fontSize: "1.25rem", color: "#EF8120" }} />,
       title: "Delivery Management",
       link: "/delivery-management",
       dropdown: [
@@ -98,27 +113,33 @@ const SideBar = () => {
       ],
     },
     {
-      icon: <RiCouponFill style={{ fontSize: "1.25rem" ,color: "#EF8120"}} />,
+      icon: <RiCouponFill style={{ fontSize: "1.25rem", color: "#EF8120" }} />,
       title: "Coupon Management",
       link: "/coupon-management",
     },
     {
-      icon: <MdOutlineSupportAgent style={{ fontSize: "1.25rem" ,color: "#EF8120"}} />,
+      icon: (
+        <MdOutlineSupportAgent
+          style={{ fontSize: "1.25rem", color: "#EF8120" }}
+        />
+      ),
       title: "Support Management",
       link: "/support",
     },
     {
-      icon: <IoMdSettings style={{ fontSize: "1.25rem" ,color: "#EF8120"}} />,
+      icon: <IoMdSettings style={{ fontSize: "1.25rem", color: "#EF8120" }} />,
       title: "Settings",
       link: "/settings",
     },
     {
-      icon: <FaUserCircle style={{ fontSize: "1.25rem" ,color: "#EF8120"}} />,
+      icon: <FaUserCircle style={{ fontSize: "1.25rem", color: "#EF8120" }} />,
       title: "Profile",
       link: "/profile",
     },
     {
-      icon: <RiLogoutBoxFill style={{ fontSize: "1.25rem",color: "#EF8120" }} />,
+      icon: (
+        <RiLogoutBoxFill style={{ fontSize: "1.25rem", color: "#EF8120" }} />
+      ),
       title: "Login",
       link: "/login",
     },
@@ -139,36 +160,42 @@ const SideBar = () => {
   return (
     <div className="w-61 h-[calc(100vh-64px)] bg-[#b0d8e5] shadow-xl fixed top-[84px] left-0 overflow-y-auto custom-scrollbar  font-semibold">
       <section className="w-61 h-full">
-
         <ul className="rounded-xl flex flex-col">
           {sideBarDatas.map((sideBarData, idx) => (
             <li key={idx}>
-           
-{sideBarData.title === "Products Management" ? (
-  <>
-    <div
-      className="w-full p-4 hover:bg-[#86C3D7] hover:shadow-xl flex justify-start items-center gap-2 text-blue-950 cursor-pointer"
-      onClick={handleProductsDropdownToggle}
-    >
-      <span className="">{sideBarData.icon}</span>
-      <span className="text-base">{sideBarData.title}</span>
-      <span className="ml-auto">{isProductsDropdownOpen ? <IoMdArrowDropdown style={{ transform: "rotate(180deg)" }} /> : <IoMdArrowDropdown />}</span>
-    </div>
-    {isProductsDropdownOpen && (
-      <ul className="ml-1 mt-2">
-        {sideBarData.dropdown.map((item, i) => (
-          <li
-            key={i}
-            className="pl-11 p-2 m-2 bg-[#fad9bd] text-black hover:bg-[#86C3D7] rounded-lg cursor-pointer"
-            onClick={() => navigate(item.link)}
-          >
-            {item.title}
-          </li>
-        ))}
-      </ul>
-    )}
-  </>
-)  : sideBarData.title === "Delivery Management" ? (
+              {sideBarData.title === "Products Management" ? (
+                <>
+                  <div
+                    className="w-full p-4 hover:bg-[#86C3D7] hover:shadow-xl flex justify-start items-center gap-2 text-blue-950 cursor-pointer"
+                    onClick={handleProductsDropdownToggle}
+                  >
+                    <span className="">{sideBarData.icon}</span>
+                    <span className="text-base">{sideBarData.title}</span>
+                    <span className="ml-auto">
+                      {isProductsDropdownOpen ? (
+                        <IoMdArrowDropdown
+                          style={{ transform: "rotate(180deg)" }}
+                        />
+                      ) : (
+                        <IoMdArrowDropdown />
+                      )}
+                    </span>
+                  </div>
+                  {isProductsDropdownOpen && (
+                    <ul className="ml-1 mt-2">
+                      {sideBarData.dropdown.map((item, i) => (
+                        <li
+                          key={i}
+                          className="pl-11 p-2 m-2 bg-[#fad9bd] text-black hover:bg-[#86C3D7] rounded-lg cursor-pointer"
+                          onClick={() => navigate(item.link)}
+                        >
+                          {item.title}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              ) : sideBarData.title === "Delivery Management" ? (
                 <>
                   <div
                     className="w-full p-4 hover:bg-[#86C3D7] hover:shadow-xl flex justify-start items-center gap-2 text-blue-950 cursor-pointer"

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 const AllProduct = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  
 
   useEffect(() => {
     axios.get("http://localhost:3001/showproduct")

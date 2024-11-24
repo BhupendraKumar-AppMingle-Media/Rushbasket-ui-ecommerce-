@@ -1,5 +1,3 @@
-
-
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +29,9 @@ const AddProduct = () => {
   const handleDiscountAmount = () => {
     const discountAmount = mrp - sellPrice;
     const discountPercentage = ((discountAmount / mrp) * 100).toFixed(2);
-    return discountType === "rupees" ? `${discountAmount} ₹` : `${discountPercentage}%`;
+    return discountType === "rupees"
+      ? `${discountAmount} ₹`
+      : `${discountPercentage}%`;
   };
 
   const handleDeleteImage = (index) => {
@@ -65,7 +65,10 @@ const AddProduct = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:3001/addproduct", payload);
+      const response = await axios.post(
+        "http://localhost:3001/addproduct",
+        payload
+      );
       console.log("Product added successfully:", response.data);
       navigate("/allproducts");
     } catch (error) {
@@ -89,17 +92,20 @@ const AddProduct = () => {
     <div className="max-w-4xl mx-auto mt-10 p-8 bg-white rounded-lg shadow-lg   ">
       {/* <h2 className="text-3xl font-semibold text-center mb-5">Add Product</h2> */}
       <h1 className="text-4xl font-bold mb-6 text-center">
-  <p className="inline  text-[#172554] px-1">Add</p>
-  <p className="inline text-[#EF8120]">Products</p>
-  
-</h1> 
+        <p className="inline  text-[#172554] px-1">Add</p>
+        <p className="inline text-[#EF8120]">Products</p>
+      </h1>
+
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         {/* Product Title */}
         <div className="mb-5">
-          <label className="block text-base font-semibold ">Product Title*</label>
+          <label className="block text-base font-semibold ">
+            Product Title*
+          </label>
           <input
             type="text"
             value={productName}
+            placeholder="Enter product Title"
             onChange={(e) => setProductName(e.target.value)}
             className="mt-2 w-full p-2    border border-orange-300 rounded-md focus:outline-none focus:border-blue-700"
             required
@@ -108,7 +114,9 @@ const AddProduct = () => {
 
         {/* Category and Subcategory */}
         <div className="mb-5">
-          <label className="block text-base font-semibold">Category<span className="">*</span></label>
+          <label className="block text-base font-semibold">
+            Category<span className="">*</span>
+          </label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -126,7 +134,9 @@ const AddProduct = () => {
 
         {category && (
           <div className="mb-5">
-            <label className="block text-base font-semibold ">Sub-Category</label>
+            <label className="block text-base font-semibold ">
+              Sub-Category
+            </label>
             <select
               value={subCategory}
               onChange={(e) => setSubCategory(e.target.value)}
@@ -149,6 +159,7 @@ const AddProduct = () => {
           <input
             type="number"
             value={mrp}
+            placeholder="MRP"
             onChange={(e) => setMrp(e.target.value)}
             className="mt-2 w-full p-2 border border-orange-300 rounded-md focus:outline-none focus:border-blue-500"
             required
@@ -159,6 +170,7 @@ const AddProduct = () => {
           <input
             type="number"
             value={sellPrice}
+            placeholder="Sell Price"
             onChange={(e) => setSellPrice(e.target.value)}
             className="mt-2 w-full p-2 border border-orange-300 rounded-md focus:outline-none focus:border-blue-500"
             required
@@ -199,10 +211,18 @@ const AddProduct = () => {
           )}
         </div>
 
-       {/* Weight */}
-       <div className="mb-5">
+        {/* Weight optinal rahega */}
+
+
+
+
+
+
+
+
+        <div className="mb-5">
           <label className="block text-base font-semibold ">
-            Weight ({weightUnit.toUpperCase()})*
+            Weight ({weightUnit.toUpperCase()})
           </label>
           <div className="flex mt-2">
             <input
@@ -220,57 +240,69 @@ const AddProduct = () => {
             >
               <option value="kg">Kg</option>
               <option value="grams">Grams</option>
+              <option value="Litre">litre</option>
+              <option value="ml">ml</option>
             </select>
           </div>
         </div>
 
-                {/* quantitiy */}
-                <div>
-            <label className="block text-base font-semibold ">Quantity*</label>
-            <input
-              type="number"
-              className="mt-2 block w-full  border border-orange-300 rounded-md focus:outline-none focus:border-blue-500 shadow-sm p-2 text-lg"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              required
-            />
-          </div>
+        {/* packets  in number */}
+        <div className="mb-5">
+          <label className="block text-base font-semibold">
+            Packets
 
-                  {/* optional rhega  sku*/}
-                  <div className="mb-5">
-          <label className="block text-base font-semibold ">SKU</label>
+          </label>
+          <input type="number"
+           className="mt-2 block w-full  border border-orange-300 rounded-md focus:outline-none focus:border-blue-500 shadow-sm p-2 text-lg"
+          placeholder="Enter packets number "  />
+
+        </div>
+
+
+
+
+        {/* quantitiy */}
+        <div>
+          <label className="block text-base font-semibold ">Quantity*</label>
+          <input
+            type="number"
+            placeholder="Enter quantity"
+            className="mt-2 block w-full  border border-orange-300 rounded-md focus:outline-none focus:border-blue-500 shadow-sm p-2 text-lg"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* sku*/}
+        <div className="mb-5 mt-2">
+          <label className="block text-base font-semibold ">SKU*</label>
           <input
             type="text"
             value={sku}
+            placeholder="Enter SKU or Product Code"
             onChange={(e) => setSku(e.target.value)}
             className="mt-2 w-full p-2 border border-orange-300 rounded-md focus:outline-none focus:border-blue-500"
             required
           />
         </div>
 
-
-       
-            
-       {/* Description */}
-       <div className="mb-5">
-          <label className="block text-base font-semibold ">Product Description</label>
+        {/* Description */}
+        <div className="mb-5">
+          <label className="block text-base font-semibold ">
+            Product Description*
+          </label>
           <ReactQuill
             value={description}
             onChange={setDescription}
             className="mt-3  border focus:border-blue-500"
             placeholder="Write your description here"
-            style={{ height: "200px" ,marginBottom:'10px'}} // Adjust height as needed
+            style={{ height: "200px", marginBottom: "10px" }} // Adjust height as needed
           />
         </div>
 
-
-
-
-
-
-
         <div className="mb-5 pt-8">
-          <label className="block text-base font-semibold">Images</label>
+          <label className="block text-base font-semibold">Images*</label>
           <input
             type="file"
             id="images"
@@ -287,7 +319,6 @@ const AddProduct = () => {
             + Add More Images
           </button>
 
-
           <div className="grid grid-cols-3 gap-4 mt-4">
             {images.map((image, index) => (
               <div key={index} className="relative">
@@ -295,6 +326,7 @@ const AddProduct = () => {
                   src={URL.createObjectURL(image)}
                   alt={`preview-${index}`}
                   className="w-full h-auto object-cover rounded-md"
+                  // className="w-[200px] h-[200px] object-fill rounded-md"
                 />
                 <button
                   type="button"
@@ -304,12 +336,12 @@ const AddProduct = () => {
                   ✕
                 </button>
               </div>
+
+
             ))}
           </div>
         </div>
 
-
-        
         <div className="mb-5 ">
           <label className="block text-base font-semibold ">Visibility*</label>
           <div className="flex mt-2">
@@ -337,8 +369,6 @@ const AddProduct = () => {
           </div>
         </div>
 
-        
-
         {/* Submit */}
         <div className="text-center mt-6">
           <button
@@ -354,6 +384,3 @@ const AddProduct = () => {
 };
 
 export default AddProduct;
-
-
-

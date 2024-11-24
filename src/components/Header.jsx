@@ -1,7 +1,7 @@
 import { FaUserCircle } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { IoNotifications } from "react-icons/io5";
-import { MdLightMode } from "react-icons/md";
+// import { MdLightMode } from "react-icons/md";
 
 // logo
 import logo from '../assets/logo.png'
@@ -31,9 +31,11 @@ const Header = () => {
           </div>
 
           <div className="text-white md:flex justify-center items-center gap-5 text-4xl">
-            <div className="cursor-pointer text-2xl text-[#172554]">
+
+            {/* <div className="cursor-pointer text-2xl text-[#172554]">
               <MdLightMode />
-            </div>
+            </div> */}
+
             <div className="cursor-pointer text-2xl text-[#172554]">
               <IoNotifications />
             </div>

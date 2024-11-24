@@ -1,210 +1,3 @@
-// import { useEffect, useState } from "react";
-// import { useNavigate, useParams } from "react-router-dom";
-// import axios from "axios";
-
-// const EditAllProducts = () => {
-//   const { id } = useParams();
-//   const navigate = useNavigate();
-  
-//   // State variables
-//   const [product, setProduct] = useState(null);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
-
-//   useEffect(() => {
-//     const fetchProduct = async () => {
-//       try {
-//         const response = await axios.put(`http://localhost:3001/update/${id}`);
-//         setProduct(response.data);
-//       } catch (error) {
-//         console.error("Error fetching product:", error);
-//         setError("Failed to load product details.");
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchProduct();
-//   }, [id]);
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setProduct((prev) => ({ ...prev, [name]: value }));
-//   };
-
-//   const handleUpdateProduct = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await axios.put(`http://localhost:3001/update/${id}`, product);
-//       alert("Product updated successfully!");
-//       navigate("/allproducts");
-//     } catch (error) {
-//       console.error("Error updating product:", error);
-//       setError("Failed to update product. Please try again.");
-//     }
-//   };
-
-//   if (loading) return <div className="text-center text-gray-500">Loading...</div>;
-//   if (error) return <div className="text-red-600 text-center">{error}</div>;
-
-//   return (
-//     <div className="max-w-2xl mx-auto p-6 bg-gray-50 rounded-lg shadow-lg mt-10">
-//       <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Edit Product</h1>
-//       <form onSubmit={handleUpdateProduct}>
-        
-//         <div className="mb-6">
-//           <label className="block text-sm font-medium text-gray-700">Product Name</label>
-//           <input
-//             type="text"
-//             name="name"
-//             value={product.productName || ""}
-//             onChange={handleInputChange}
-//             className="mt-2 w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:ring-blue-400 focus:border-blue-400"
-//             required
-//           />
-//         </div>
-
-//         <div className="mb-6">
-//           <label className="block text-sm font-medium text-gray-700">Category</label>
-//           <input
-//             type="text"
-//             name="category"
-//             value={product.category || ""}
-//             onChange={handleInputChange}
-//             className="mt-2 w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:ring-blue-400 focus:border-blue-400"
-//           />
-//         </div>
-
-//         <div className="mb-6">
-//           <label className="block text-sm font-medium text-gray-700">Subcategory</label>
-//           <input
-//             type="text"
-//             name="subCategory"
-//             value={product.subCategory || ""}
-//             onChange={handleInputChange}
-//             className="mt-2 w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:ring-blue-400 focus:border-blue-400"
-//           />
-//         </div>
-
-
-//         <div className="grid grid-cols-2 gap-6 mb-6">
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700">Price</label>
-//             <input
-//               type="number"
-//               name="price"
-//               value={product.price || ""}
-//               onChange={handleInputChange}
-//               className="mt-2 w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:ring-blue-400 focus:border-blue-400"
-//               required
-//             />
-//           </div>
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700">Quantity</label>
-//             <input
-//               type="number"
-//               name="quantity"
-//               value={product.quantity || ""}
-//               onChange={handleInputChange}
-//               className="mt-2 w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:ring-blue-400 focus:border-blue-400"
-//               required
-//             />
-//           </div>
-//         </div>
-
-//         <div className="mb-6">
-//           <label className="block text-sm font-medium text-gray-700">Product Info</label>
-//           <textarea
-//             name="productInfo"
-//             value={product.productInfo || ""}
-//             onChange={handleInputChange}
-//             className="mt-2 w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:ring-blue-400 focus:border-blue-400"
-//           />
-//         </div>
-
-//         <div className="mb-6">
-//           <label className="block text-sm font-medium text-gray-700">Description</label>
-//           <textarea
-//             name="description"
-//             value={product.description || ""}
-//             onChange={handleInputChange}
-//             className="mt-2 w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:ring-blue-400 focus:border-blue-400"
-//           />
-//         </div>
-
-//         <div className="grid grid-cols-2 gap-6 mb-6">
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700">SKU*</label>
-//             <input
-//               type="text"
-//               name="sku"
-//               value={product.sku || ""}
-//               onChange={handleInputChange}
-//               className="mt-2 w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:ring-blue-400 focus:border-blue-400"
-//               required
-//             />
-//           </div>
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700">Weight (in kg)*</label>
-//             <input
-//               type="number"
-//               name="weight"
-//               value={product.weight || ""}
-//               onChange={handleInputChange}
-//               className="mt-2 w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:ring-blue-400 focus:border-blue-400"
-//               required
-//             />
-//           </div>
-//         </div>
-
-//         <div className="grid grid-cols-2 gap-6 mb-6">
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700">Sell Price*</label>
-//             <input
-//               type="number"
-//               name="sellPrice"
-//               value={product.sellPrice || ""}
-//               onChange={handleInputChange}
-//               className="mt-2 w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:ring-blue-400 focus:border-blue-400"
-//               required
-//             />
-//           </div>
-//           <div>
-//             <label className="block text-sm font-medium text-gray-700">MRP*</label>
-//             <input
-//               type="number"
-//               name="mrp"
-//               value={product.mrp || ""}
-//               onChange={handleInputChange}
-//               className="mt-2 w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:ring-blue-400 focus:border-blue-400"
-//               required
-//             />
-//           </div>
-//         </div>
-
-//         <button
-//           type="submit"
-//           className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
-//         >
-//           Save Changes
-//         </button>
-//         <button
-//           onClick={() => navigate("/allproducts")}
-//           className="mt-4 w-full bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-300 transition duration-200"
-//         >
-//           Cancel
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default EditAllProducts;
-
-
-
-
-
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -236,7 +29,9 @@ const EditAllProducts = () => {
   const handleDiscountAmount = () => {
     const discountAmount = mrp - sellPrice;
     const discountPercentage = ((discountAmount / mrp) * 100).toFixed(2);
-    return discountType === "rupees" ? `${discountAmount} ₹` : `${discountPercentage}%`;
+    return discountType === "rupees"
+      ? `${discountAmount} ₹`
+      : `${discountPercentage}%`;
   };
 
   const handleDeleteImage = (index) => {
@@ -270,7 +65,10 @@ const EditAllProducts = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:3001/addproduct", payload);
+      const response = await axios.post(
+        "http://localhost:3001/addproduct",
+        payload
+      );
       console.log("Product added successfully:", response.data);
       navigate("/allproducts");
     } catch (error) {
@@ -280,24 +78,34 @@ const EditAllProducts = () => {
 
   const subCategoriesData = {
     electronics: ["Mobile", "Laptop", "Camera"],
-   toys: ["Electronic Toys", "Learning Toys", "Outdoor Toys"],
+    kitchen: ["Mixer", "Microwave", "Cookware"],
+    fashion: ["Men's Wear", "Women's Wear", "Accessories"],
+    dailyproduct: ["Toothpaste", "Soap", "Shampoo"],
+    groceries: ["Rice", "Wheat", "Lentils"],
+    vegetables: ["Carrot", "Potato", "Onion"],
+    gym: ["Protein", "Vitamins", "Supplements"],
+    drinks: ["Juices", "Soft Drinks", "Energy Drinks"],
+    toys: ["Electronic Toys", "Learning Toys", "Outdoor Toys"],
   };
 
   return (
     <div className="max-w-4xl mx-auto mt-10 p-8 bg-white rounded-lg shadow-lg   ">
       {/* <h2 className="text-3xl font-semibold text-center mb-5">Add Product</h2> */}
       <h1 className="text-4xl font-bold mb-6 text-center">
-  <p className="inline  text-[#172554] px-1">Add</p>
-  <p className="inline text-[#EF8120]">Products</p>
-  
-</h1> 
+        <p className="inline  text-[#172554] px-1">Add</p>
+        <p className="inline text-[#EF8120]">Products</p>
+      </h1>
+
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         {/* Product Title */}
         <div className="mb-5">
-          <label className="block text-base font-semibold ">Product Title*</label>
+          <label className="block text-base font-semibold ">
+            Product Title*
+          </label>
           <input
             type="text"
             value={productName}
+            placeholder="Enter product Title"
             onChange={(e) => setProductName(e.target.value)}
             className="mt-2 w-full p-2    border border-orange-300 rounded-md focus:outline-none focus:border-blue-700"
             required
@@ -306,7 +114,9 @@ const EditAllProducts = () => {
 
         {/* Category and Subcategory */}
         <div className="mb-5">
-          <label className="block text-base font-semibold">Category<span className="">*</span></label>
+          <label className="block text-base font-semibold">
+            Category<span className="">*</span>
+          </label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -324,7 +134,9 @@ const EditAllProducts = () => {
 
         {category && (
           <div className="mb-5">
-            <label className="block text-base font-semibold ">Sub-Category</label>
+            <label className="block text-base font-semibold ">
+              Sub-Category
+            </label>
             <select
               value={subCategory}
               onChange={(e) => setSubCategory(e.target.value)}
@@ -347,6 +159,7 @@ const EditAllProducts = () => {
           <input
             type="number"
             value={mrp}
+            placeholder="MRP"
             onChange={(e) => setMrp(e.target.value)}
             className="mt-2 w-full p-2 border border-orange-300 rounded-md focus:outline-none focus:border-blue-500"
             required
@@ -357,6 +170,7 @@ const EditAllProducts = () => {
           <input
             type="number"
             value={sellPrice}
+            placeholder="Sell Price"
             onChange={(e) => setSellPrice(e.target.value)}
             className="mt-2 w-full p-2 border border-orange-300 rounded-md focus:outline-none focus:border-blue-500"
             required
@@ -397,10 +211,18 @@ const EditAllProducts = () => {
           )}
         </div>
 
-       {/* Weight */}
-       <div className="mb-5">
+        {/* Weight optinal rahega */}
+
+
+
+
+
+
+
+
+        <div className="mb-5">
           <label className="block text-base font-semibold ">
-            Weight ({weightUnit.toUpperCase()})*
+            Weight ({weightUnit.toUpperCase()})
           </label>
           <div className="flex mt-2">
             <input
@@ -418,57 +240,69 @@ const EditAllProducts = () => {
             >
               <option value="kg">Kg</option>
               <option value="grams">Grams</option>
+              <option value="Litre">litre</option>
+              <option value="ml">ml</option>
             </select>
           </div>
         </div>
 
-                {/* quantitiy */}
-                <div>
-            <label className="block text-base font-semibold ">Quantity*</label>
-            <input
-              type="number"
-              className="mt-2 block w-full  border border-orange-300 rounded-md focus:outline-none focus:border-blue-500 shadow-sm p-2 text-lg"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              required
-            />
-          </div>
+        {/* packets  in number */}
+        <div className="mb-5">
+          <label className="block text-base font-semibold">
+            Packets
 
-                  {/* optional rhega  sku*/}
-                  <div className="mb-5">
-          <label className="block text-base font-semibold ">SKU</label>
+          </label>
+          <input type="number"
+           className="mt-2 block w-full  border border-orange-300 rounded-md focus:outline-none focus:border-blue-500 shadow-sm p-2 text-lg"
+          placeholder="Enter packets number "  />
+
+        </div>
+
+
+
+
+        {/* quantitiy */}
+        <div>
+          <label className="block text-base font-semibold ">Quantity*</label>
+          <input
+            type="number"
+            placeholder="Enter quantity"
+            className="mt-2 block w-full  border border-orange-300 rounded-md focus:outline-none focus:border-blue-500 shadow-sm p-2 text-lg"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* sku*/}
+        <div className="mb-5 mt-2">
+          <label className="block text-base font-semibold ">SKU*</label>
           <input
             type="text"
             value={sku}
+            placeholder="Enter SKU or Product Code"
             onChange={(e) => setSku(e.target.value)}
             className="mt-2 w-full p-2 border border-orange-300 rounded-md focus:outline-none focus:border-blue-500"
             required
           />
         </div>
 
-
-       
-            
-       {/* Description */}
-       <div className="mb-5">
-          <label className="block text-base font-semibold ">Product Description</label>
+        {/* Description */}
+        <div className="mb-5">
+          <label className="block text-base font-semibold ">
+            Product Description*
+          </label>
           <ReactQuill
             value={description}
             onChange={setDescription}
             className="mt-3  border focus:border-blue-500"
             placeholder="Write your description here"
-            style={{ height: "200px" ,marginBottom:'10px'}} // Adjust height as needed
+            style={{ height: "200px", marginBottom: "10px" }} // Adjust height as needed
           />
         </div>
 
-
-
-
-
-
-
         <div className="mb-5 pt-8">
-          <label className="block text-base font-semibold">Images</label>
+          <label className="block text-base font-semibold">Images*</label>
           <input
             type="file"
             id="images"
@@ -485,7 +319,6 @@ const EditAllProducts = () => {
             + Add More Images
           </button>
 
-
           <div className="grid grid-cols-3 gap-4 mt-4">
             {images.map((image, index) => (
               <div key={index} className="relative">
@@ -493,6 +326,7 @@ const EditAllProducts = () => {
                   src={URL.createObjectURL(image)}
                   alt={`preview-${index}`}
                   className="w-full h-auto object-cover rounded-md"
+                  // className="w-[200px] h-[200px] object-fill rounded-md"
                 />
                 <button
                   type="button"
@@ -502,12 +336,12 @@ const EditAllProducts = () => {
                   ✕
                 </button>
               </div>
+
+
             ))}
           </div>
         </div>
 
-
-        
         <div className="mb-5 ">
           <label className="block text-base font-semibold ">Visibility*</label>
           <div className="flex mt-2">
@@ -535,8 +369,6 @@ const EditAllProducts = () => {
           </div>
         </div>
 
-        
-
         {/* Submit */}
         <div className="text-center mt-6">
           <button
@@ -552,6 +384,3 @@ const EditAllProducts = () => {
 };
 
 export default EditAllProducts;
-
-
-
