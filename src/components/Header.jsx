@@ -9,7 +9,7 @@ import logo from '../assets/logo.png'
 const Header = () => {
   return (
     <>
-      <header className="w-full sticky top-0 shadow-lg" style={{ backgroundColor: '#86c3d7' }}>
+      <header className="w-full sticky top-0 shadow-lg  bg-[#86c3d7] z-50">
         <div className="flex justify-between items-center mx-4 p-0.5">
           <div className="flex items-center">
             {/* Add logo here */}

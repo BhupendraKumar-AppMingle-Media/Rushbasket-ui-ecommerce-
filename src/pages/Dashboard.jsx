@@ -7,7 +7,7 @@ import {
   Line,
   BarChart,
   Bar,
-  Cell,
+  // Cell,
   XAxis,
   YAxis,
   Tooltip,
@@ -72,6 +72,10 @@ const Dashboard = () => {
   const filteredOrders = filter
     ? ordersData.filter((order) => order.status === filter)
     : ordersData;
+
+
+    //
+    
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen  ">
@@ -209,7 +213,7 @@ const Dashboard = () => {
       </div>
 
       {/* Customer Feedback */}
-      <div className="bg-white p-6 rounded-lg shadow-lg">
+      <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
         <h2 className="text-lg font-semibold mb-4">Customer Feedback</h2>
         <div className="space-y-4">
           {feedback.map((item) => (

@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Login from "../components/Login/Login.jsx";
+//
 import VerificationLogin from "../components/Login/VerificationLogin.jsx";
 
 // order
@@ -65,9 +66,9 @@ import DeliveryManagement from "../pages/DeliveryManagement/DeliveryManagement.j
 import DeliveryList from "../pages/DeliveryManagement/DeliveryList.jsx";
 import DeliveryStatusTracking from "../pages/DeliveryManagement/DeliveryStatusTracking.jsx";
 
-import AssignDeliveries from '../pages/DeliveryManagement/AssignDeliveries';
-import SearchPersonnel from '../pages/DeliveryManagement/SearchPersonnel';
-import PerformanceDashboard from '../pages/DeliveryManagement/PerformanceDashboard';
+import AssignDeliveries from "../pages/DeliveryManagement/AssignDeliveries";
+import SearchPersonnel from "../pages/DeliveryManagement/SearchPersonnel";
+import PerformanceDashboard from "../pages/DeliveryManagement/PerformanceDashboard";
 
 // profile
 import Profile from "../pages/ProfileSection/Profile.jsx";
@@ -84,9 +85,8 @@ import Settings from "../pages/Settings.jsx";
 
 // import CategoryManagement from '../components/Product/ProductCategory/CategoryManagement.jsx';
 // import SubcategoryManagement from '../components/Product/ProductCategory/SubcategoryManagement.jsx';
-import EditCategory from '../components/Product/ProductCategory/EditCategory.jsx';
-import EditSubcategory from '../components/Product/ProductCategory/EditSubcategory.jsx';
-
+import EditCategory from "../components/Product/ProductCategory/EditCategory.jsx";
+import EditSubcategory from "../components/Product/ProductCategory/EditSubcategory.jsx";
 
 const Layout = () => {
   return (
@@ -96,7 +96,10 @@ const Layout = () => {
         <Route path="/products" element={<Products />} />
         {/* products-all-action-routes */}
         <Route path="/allproducts-edit/:id" element={<Editallproducts />} />
-        <Route path="/allproducts-preview/:id" element={<Previewallproducts />} />
+        <Route
+          path="/allproducts-preview/:id"
+          element={<Previewallproducts />}
+        />
         <Route path="/addProduct" element={<AddProduct />} />
         <Route path="/categories" element={<CategoryProduct />} />
         <Route path="/inventoryproduct" element={<InventoryProduct />} />
@@ -109,17 +112,11 @@ const Layout = () => {
 
         {/* categories management */}
 
-
-
-{/* 
+        {/* 
                 <Route  path="/categoriess" element={<CategoryManagement/>} />
                 <Route  path="/subcategories/:categoryId" element={<SubcategoryManagement/>} />*/}
-                <Route  path="/edit-category/:id" element={<EditCategory/>} />
-                <Route  path="/edit-subcategory/:id" element={<EditSubcategory/>} /> 
-
-
-
-
+        <Route path="/edit-category/:id" element={<EditCategory />} />
+        <Route path="/edit-subcategory/:id" element={<EditSubcategory />} />
 
         {/* Orders  */}
         <Route path="/order-active" element={<ActiveOrder />} />
@@ -134,7 +131,7 @@ const Layout = () => {
         <Route path="/customers" element={<Customers />} />
         <Route path="/customerlist" element={<CustomersList />} />
         <Route path="/buyerlist" element={<BuyerListCustomers />} />
-        
+
         <Route path="/previewcustomers" element={<PreviewCustomers />} />
         <Route path="/editcustomers" element={<EditCustomers />} />
         {/* review */}
@@ -152,11 +149,10 @@ const Layout = () => {
         <Route path="/analytics" element={<Analytics />} />
         {/* <Route path="/inventory" element={<Inventory />} /> */}
 
-        <Route path="/settings" element={<Settings/>} />
+        <Route path="/settings" element={<Settings />} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/verificationadmin" element={<VerificationLogin />} />
-
 
         {/* push-notification */}
         <Route path="/push-notifications" element={<PushNotifications />} />
@@ -164,14 +160,11 @@ const Layout = () => {
         <Route path="/view-push-notifications" element={<ViewNotification />} />
         <Route path="/edit-push-notifications" element={<EditNotification />} />
 
-
-
         {/* popups */}
         <Route path="/popups-management" element={<PopupsManage />} />
         <Route path="/addpopupsform" element={<AddPopupsForm />} />
         <Route path="/earning-report" element={<EarningReport />} />
         <Route path="/edit-popups" element={<EditPopups />} />
-
 
         {/* coupon management */}
         <Route path="/coupon-management" element={<CouponManage />} />
@@ -180,22 +173,24 @@ const Layout = () => {
         <Route path="/support" element={<SupportManage />} />
         {/* delivery management */}
         <Route path="/delivery-management" element={<DeliveryManagement />} />
-        <Route path="/delivery-list" element={< DeliveryList />} />
+        <Route path="/delivery-list" element={<DeliveryList />} />
         <Route
           path="/DeliveryStatusTracking"
           element={<DeliveryStatusTracking />}
         />
 
-          <Route path="/assign-deliveries" element={<AssignDeliveries />} />
-          <Route path="/search-personnel" element={<SearchPersonnel />} />
-          <Route path="/performance-dashboard" element={<PerformanceDashboard />} />
+        <Route path="/assign-deliveries" element={<AssignDeliveries />} />
+        <Route path="/search-personnel" element={<SearchPersonnel />} />
+        <Route
+          path="/performance-dashboard"
+          element={<PerformanceDashboard />}
+        />
 
         {/* profile */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile-details" element={<ProfileDetails />} />
         <Route path="/profile-edit" element={<ProfileEdit />} />
 
-      
         <Route path="/transactions" element={<Transactions />} />
 
         <Route path="*" element={<h2>404, Page Not Found</h2>} />

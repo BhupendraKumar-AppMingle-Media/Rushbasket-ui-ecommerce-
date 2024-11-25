@@ -3,7 +3,7 @@ import { AiOutlineAreaChart } from "react-icons/ai";
 import { FaMoneyBillWave, FaUserCircle } from "react-icons/fa";
 import { FaCartShopping, FaUsers } from "react-icons/fa6";
 import { GrProductHunt } from "react-icons/gr";
-import { HiMiniCurrencyRupee } from "react-icons/hi2";
+// import { HiMiniCurrencyRupee } from "react-icons/hi2";
 import { IoMdSettings } from "react-icons/io";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { IoMdArrowDropdown } from "react-icons/io"; // Import the dropdown icon
@@ -63,15 +63,15 @@ const SideBar = () => {
       title: "Reviews Management",
       link: "/reviews",
     },
-    {
-      icon: (
-        <HiMiniCurrencyRupee
-          style={{ fontSize: "1.25rem", color: "#EF8120" }}
-        />
-      ),
-      title: "Transactions",
-      link: "/transactions",
-    },
+    // {
+    //   icon: (
+    //     <HiMiniCurrencyRupee
+    //       style={{ fontSize: "1.25rem", color: "#EF8120" }}
+    //     />
+    //   ),
+    //   title: "Transactions",
+    //   link: "/transactions",
+    // },
     {
       icon: (
         <AiOutlineAreaChart style={{ fontSize: "1.25rem", color: "#EF8120" }} />
@@ -166,7 +166,7 @@ const SideBar = () => {
               {sideBarData.title === "Products Management" ? (
                 <>
                   <div
-                    className="w-full p-4 hover:bg-[#86C3D7] hover:shadow-xl flex justify-start items-center gap-2 text-blue-950 cursor-pointer"
+                    className="w-full p-3 hover:bg-[#86C3D7] hover:shadow-xl flex justify-start items-center gap-2 text-blue-950 cursor-pointer"
                     onClick={handleProductsDropdownToggle}
                   >
                     <span className="">{sideBarData.icon}</span>
@@ -198,7 +198,7 @@ const SideBar = () => {
               ) : sideBarData.title === "Delivery Management" ? (
                 <>
                   <div
-                    className="w-full p-4 hover:bg-[#86C3D7] hover:shadow-xl flex justify-start items-center gap-2 text-blue-950 cursor-pointer"
+                    className="w-full p-3 hover:bg-[#86C3D7] hover:shadow-xl flex justify-start items-center gap-2 text-blue-950 cursor-pointer"
                     onClick={handleDeliveryDropdownToggle}
                   >
                     <span>{sideBarData.icon}</span>
@@ -218,10 +218,10 @@ const SideBar = () => {
                     </ul>
                   )}
                 </>
-              ) : sideBarData.title === "Customers Management" ? (
+              ) : sideBarData.title ==="Customers Management" ? (
                 <>
                   <div
-                    className="w-full p-4 hover:bg-[#86C3D7] hover:shadow-xl flex justify-start items-center gap-4 text-blue-950 cursor-pointer"
+                    className="w-full p-3 hover:bg-[#86C3D7] hover:shadow-xl flex justify-start items-center gap-4 text-blue-950 cursor-pointer"
                     onClick={handleCustomersDropdownToggle}
                   >
                     <span>{sideBarData.icon}</span>
@@ -243,7 +243,7 @@ const SideBar = () => {
                 </>
               ) : (
                 <div
-                  className="w-full p-4 hover:bg-[#86C3D7] hover:shadow-xl flex justify-start items-center gap-2 text-blue-950 cursor-pointer"
+                  className="w-full p-3 hover:bg-[#86C3D7] hover:shadow-xl flex justify-start items-center gap-2 text-blue-950 cursor-pointer"
                   onClick={() => navigate(sideBarData.link)}
                 >
                   <span>{sideBarData.icon}</span>
