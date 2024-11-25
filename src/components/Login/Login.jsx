@@ -28,7 +28,7 @@ const Login = () => {
         {/* Form Section */}
         <form onSubmit={''} className="space-y-4">
           {/* Phone Input */}
-          <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
+          {/* <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
             <div className="flex items-center bg-gray-200 p-2">
               <img
                 src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1920px-Flag_of_India.svg.png"
@@ -44,7 +44,7 @@ const Login = () => {
               onChange={(e) => setPhoneNumber(e.target.value)}
               className="flex-1 p-2 border-l border-gray-300 outline-none focus:ring focus:ring-orange-500"
             />
-          </div>
+          </div> */}
 
           {/* Email Input */}
           <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
@@ -73,7 +73,7 @@ const Login = () => {
             type="submit"
             className="w-full bg-orange-500 text-white py-2 rounded-md font-semibold hover:bg-orange-600 transition duration-300"
           >
-            Next
+            Submit
           </button>
         </form>
       </div>

@@ -1,7 +1,7 @@
 import { FaUserCircle } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { IoNotifications } from "react-icons/io5";
-import { MdLightMode } from "react-icons/md";
+// import { MdLightMode } from "react-icons/md";
 
 // logo
 import logo from '../assets/logo.png'
@@ -9,11 +9,11 @@ import logo from '../assets/logo.png'
 const Header = () => {
   return (
     <>
-      <header className="w-full sticky top-0 shadow-lg" style={{ backgroundColor: '#86c3d7' }}>
+      <header className="w-full sticky top-0 shadow-lg bg-[#86c3d7] z-50 bg-gradient-to-r from-[#dec4eb] to-[#D13A57]">
         <div className="flex justify-between items-center mx-4 p-0.5">
           <div className="flex items-center">
             {/* Add logo here */}
-            <img src={logo} alt="Logo" className="h-auto max-w-[80px] cursor-pointer" />
+            <img src={logo} alt="Logo" className="h-auto max-w-[100px] cursor-pointer" />
           </div>
 
           <div className="flex items-center">
@@ -31,9 +31,11 @@ const Header = () => {
           </div>
 
           <div className="text-white md:flex justify-center items-center gap-5 text-4xl">
-            <div className="cursor-pointer text-2xl text-[#172554]">
+
+            {/* <div className="cursor-pointer text-2xl text-[#172554]">
               <MdLightMode />
-            </div>
+            </div> */}
+
             <div className="cursor-pointer text-2xl text-[#172554]">
               <IoNotifications />
             </div>

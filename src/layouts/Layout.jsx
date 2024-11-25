@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import Login from "../components/Login/Login.jsx";
-import VerificationLogin from "../components/Login/VerificationLogin.jsx";
 
 // order
 import ActiveOrder from "../components/Orders/ActiveOrder.jsx";
@@ -155,7 +154,6 @@ const Layout = () => {
         <Route path="/settings" element={<Settings/>} />
 
         <Route path="/login" element={<Login />} />
-        <Route path="/verificationadmin" element={<VerificationLogin />} />
 
 
         {/* push-notification */}

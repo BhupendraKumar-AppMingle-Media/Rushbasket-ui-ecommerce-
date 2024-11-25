@@ -7,7 +7,7 @@ import {
   Line,
   BarChart,
   Bar,
-  Cell,
+  // Cell,
   XAxis,
   YAxis,
   Tooltip,
@@ -74,11 +74,12 @@ const Dashboard = () => {
     : ordersData;
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen  ">
+    <div className="p-6 bg-gray-100 min-h-screen   ">
       {/* <h1 className="text-4xl font-bold mb-6 text-center">   <p className="inline  bg-{#172554}"> Rush</p>  <p className="inline "> Baskets</p></h1> */}
+      {/* Bid Venture */}
       <h1 className="text-4xl font-bold mb-6 text-center">
-  <p className="inline  text-[#172554] px-1">Rush</p>
-  <p className="inline text-[#EF8120]">Baskets</p>
+  <p className="inline  text-[#172554] px-1">Bid</p>
+  <p className="inline text-[#EF8120]">Venture</p>
   
 </h1>
 
@@ -115,15 +116,15 @@ const Dashboard = () => {
       </div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6"
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 "
        >
         {/* Pie Chart */}
-        <div className="bg-white shadow-lg rounded-lg p-6"
+        <div className="bg-white shadow-lg rounded-lg p-6 "
         //  style={{backgroundColor:'#b0d8e5'}}
          >
-          <h2 className="text-lg font-semibold mb-4">Order Distribution</h2>
+          <h2 className="text-lg font-semibold mb-4  ">Order Distribution</h2>
           <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
+            <PieChart className=" ">
               <Pie
                 data={chartData}
                 dataKey="value"
@@ -209,7 +210,7 @@ const Dashboard = () => {
       </div>
 
       {/* Customer Feedback */}
-      <div className="bg-white p-6 rounded-lg shadow-lg">
+      <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
         <h2 className="text-lg font-semibold mb-4">Customer Feedback</h2>
         <div className="space-y-4">
           {feedback.map((item) => (

@@ -1,421 +1,142 @@
-
-
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { useState } from 'react';
 
 const Settings = () => {
-  const [images, setImages] = useState([]);
-  const [newUpload, setNewUpload] = useState(null); // To store a single file for upload
-  const fileInputRef = useRef(null); // Reference for file input for editing
+  const [image, setImage] = useState(null);
+  const [imagesList, setImagesList] = useState([]);
+  const [editedImage, setEditedImage] = useState(null);
+  const [newImage, setNewImage] = useState(null); // New state for the edited image upload
 
-  // Fetch Images from API
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/imgageSlideget")
-      .then((response) => {
-        console.log("Fetched images:", response.data);
-        setImages(response.data); // Assuming the API returns an array of images
-      })
-      .catch((error) => console.error("Error fetching images:", error));
-  }, []);
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setImage(URL.createObjectURL(file));
+  };
 
-  // Handle Image Upload (single image)
-  const handleUpload = (event) => {
-    const file = event.target.files[0]; // Get the single file
-    if (file) {
-      setNewUpload({
-        id: Date.now() + Math.random(), // Temporary ID
-        file, // Store the file for submission
-        url: URL.createObjectURL(file), // Preview URL
-      });
+  const handleSubmit = () => {
+    if (image) {
+      setImagesList([...imagesList, { id: imagesList.length + 1, src: image }]);
+      setImage(null); // Clear the upload after adding to the list
     }
   };
 
-  // Submit New Upload
-  const handleSubmitUpload = () => {
-    if (!newUpload) return; // Ensure a file is selected
-
-    const formData = new FormData();
-    formData.append("imageUrl", newUpload.file); // Image field as per backend schema
-
-    axios
-      .post("http://localhost:3001/imageCreate", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then((response) => {
-        setImages([...images, response.data]); // Append uploaded image to the existing list
-        setNewUpload(null); // Clear pending upload
-      })
-      .catch((error) => console.error("Error uploading image:", error));
-  };
-
-  // Handle Delete Image
-  const handleDelete = (id) => {
-    console.log("Deleting image with ID:", id);
-    axios
-      .delete(`http://localhost:3001/imageSlideDelete/${id}`)
-      .then(() => {
-        setImages(images.filter((image) => image._id !== id));
-      })
-      .catch((error) => console.error("Error deleting image:", error));
-  };
-
-  // Handle Edit Image
   const handleEdit = (id) => {
-    fileInputRef.current.click(); // Trigger the file input click
-    fileInputRef.current.onchange = (event) => {
-      const file = event.target.files[0];
-      if (!file) return;
+    const imageToEdit = imagesList.find((img) => img.id === id);
+    setEditedImage(imageToEdit);
+    setNewImage(imageToEdit.src); // Set the current image to the new image for editing
+  };
 
-      const formData = new FormData();
-      formData.append("imageUrl", file); // Image field for update
-      formData.append("id", id); // Include image ID
+  const handleDelete = (id) => {
+    setImagesList(imagesList.filter((img) => img.id !== id));
+  };
 
-      axios
-        .put("http://localhost:3001/imgageSlideput", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((response) => {
-          setImages(
-            images.map((image) =>
-              image._id === id ? { ...image, url: response.data.url } : image
-            )
-          );
-        })
-        .catch((error) => console.error("Error editing image:", error));
-    };
+  const handleSaveEdit = () => {
+    if (newImage) {
+      setImagesList(
+        imagesList.map((img) => (img.id === editedImage.id ? { ...img, src: newImage } : img))
+      );
+      setEditedImage(null);
+      setNewImage(null); // Clear the new image after saving
+    }
   };
 
   return (
-    <div className="p-10 bg-gray-100 min-h-screen">
-      {/* Title */}
-      {/* <h1 className="text-4xl font-bold text-gray-900 mb-6 text-center">Slider</h1> */}
-       
-      <h1 className="text-4xl font-bold mb-6 text-center">
-  <p className="inline  text-[#172554] px-1">Image</p>
-  <p className="inline text-[#EF8120]">Slider</p>
-  </h1>
-      {/* Upload Button */}
+    <div className="max-w-4xl mx-auto p-4">
+      
+<h1 className="text-4xl font-bold mb-6 text-center">
+        <span className="text-[#172554]">Image</span>
+        <span className="text-[#EF8120]"> Slider</span>
+      </h1>
+      {/* Image Upload Section */}
       <div className="mb-6">
-        <label className="block text-lg font-bold text-gray-900 mb-2">
-          Upload Image
-        </label>
+        <label className="block text-lg  font-semibold mb-2">Upload Image</label>
         <input
           type="file"
           accept="image/*"
-          onChange={handleUpload}
-          className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+          onChange={handleImageUpload}
+          className="border border-gray-300 rounded p-2 w-full"
         />
-        {newUpload && (
-          <button
-            onClick={handleSubmitUpload}
-            className="mt-4 px-4 py-2 bg-green-500 text-white font-medium rounded hover:bg-green-600"
-          >
-            Submit
-          </button>
+        {image && (
+          <div className="mt-4">
+            <img src={image} alt="Preview" className="w-32 h-32 object-cover" />
+            <button
+              onClick={handleSubmit}
+              className="mt-2 bg-blue-500 text-white py-2 px-4 rounded"
+            >
+              Submit
+            </button>
+          </div>
         )}
       </div>
 
-      {/* Image Slider */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {images.map((image) => (
-          <div
-            key={image._id}
-            className="relative bg-white shadow-md rounded-lg overflow-hidden"
-          >
-            {/* Image */}
-            <img
-              src={image.imageUrl}
-              alt="Uploaded"
-              className="w-full h-64 object-cover"
-            />
-
-            {/* Action Buttons */}
-            <div className="absolute top-2 right-2 flex space-x-2">
-              <button
-                onClick={() => handleEdit(image._id)}
-                className="px-3 py-1 bg-yellow-500 text-white text-sm font-medium rounded hover:bg-yellow-600"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(image._id)}
-                className="px-3 py-1 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
+      {/* Image List Section */}
+      <div className="overflow-x-auto shadow-md sm:rounded-lg">
+        <table className="min-w-full table-auto">
+          <thead className="bg-[#86C3D7]">
+            <tr>
+              <th className="px-6 py-3 text-left text-sm font-semibold ">Image</th>
+              <th className="px-6 py-3 text-left text-sm font-semibold ">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {imagesList.map((img) => (
+              <tr key={img.id} className="border-t">
+                <td className="px-6 py-4">
+                  <img src={img.src} alt="Slider Image" className="w-32 h-32 object-cover" />
+                </td>
+                <td className="px-6 py-4 text-sm ">
+                  <button
+                    onClick={() => handleEdit(img.id)}
+                    className="mr-2 text-blue-500"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(img.id)}
+                    className="mr-2 text-red-500"
+                  >
+                    Delete
+                  </button>
+                  <button className="text-green-500" onClick={() => alert("Submitted")}>
+                    Submit
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
-      {/* Hidden File Input for Editing */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        className="hidden"
-      />
+      {/* Edit Modal */}
+      {editedImage && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 className="text-lg font-semibold mb-4">Edit Image</h3>
+            <div className="mb-4">
+              <label className="block text-sm font-medium">Upload a new image</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setNewImage(URL.createObjectURL(e.target.files[0]))}
+                className="border border-gray-300 rounded p-2 w-full"
+              />
+            </div>
+            {newImage && <img src={newImage} alt="Preview" className="w-full h-48 object-cover mb-4" />}
+            <button
+              onClick={handleSaveEdit}
+              className="bg-blue-500 text-white py-2 px-4 rounded"
+            >
+              Save Edit
+            </button>
+            <button
+              onClick={() => setEditedImage(null)}
+              className="ml-4 bg-gray-300 text-black py-2 px-4 rounded"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Settings;
-
-
-
-
-
-
-
-//2
-
-// import { useState, useEffect, useRef } from "react";
-// import axios from "axios";
-
-// const Settings = () => {
-//   const [images, setImages] = useState([]);
-//   const [newUploads, setNewUploads] = useState([]);
-//   const fileInputRef = useRef(null); // Reference for file input for editing
-
-//   // Fetch Images from API
-//   useEffect(() => {
-//     axios
-//     //   .get("http://localhost:3001/imageCreate")
-//       .get("http://localhost:3001/imgageSlideget")
-//       .then((response) => {
-//         console.log("Fetched images:", response.data);
-//         setImages(response.data); // Assuming the API returns an array of images
-//       })
-//       .catch((error) => console.error("Error fetching images:", error));
-//   }, []);
-
-//   // Handle Image Upload
-//   const handleUpload = (event) => {
-//     const files = Array.from(event.target.files);
-//     const newImages = files.map((file) => ({
-//       id: Date.now() + Math.random(), // Temporary ID
-//       file, // Store the file for submission
-//       url: URL.createObjectURL(file), // Preview URL
-//     }));
-//     setNewUploads([...newUploads, ...newImages]);
-//   };
-
-//   // Submit New Uploads
-//   const handleSubmitUploads = () => {
-//     const formData = new FormData();
-//     newUploads.forEach((image) => formData.append("images", image.file));
-
-//     axios
-//       .post("http://localhost:3001/imageCreate", formData, {
-//         headers: { "Content-Type": "multipart/form-data" },
-//       })
-//       .then((response) => {
-//         setImages([...images, ...response.data]); // Append uploaded images to existing list
-//         setNewUploads([]); // Clear pending uploads
-//       })
-//       .catch((error) => console.error("Error uploading images:", error));
-//   };
-
-//   // Handle Delete Image
-//   const handleDelete = (id) => {
-//     console.log("Deleting image with ID:", id);
-//     axios
-//       .delete(`http://localhost:3001/imageSlideDelete/${id}`)
-//       .then(() => {
-//         setImages(images.filter((image) => image._id !== id));
-//       })
-//       .catch((error) => console.error("Error deleting image:", error));
-//   };
-
-//   // Handle Edit Image
-//   const handleEdit = (id) => {
-//     fileInputRef.current.click(); // Trigger the file input click
-//     fileInputRef.current.onchange = (event) => {
-//       const file = event.target.files[0];
-//       if (!file) return;
-
-//       const formData = new FormData();
-//       formData.append("image", file);
-//       formData.append("id", id);
-
-//       axios
-//         .put("http://localhost:3001/imgageSlideput", formData, {
-//           headers: { "Content-Type": "multipart/form-data" },
-//         })
-//         .then((response) => {
-//           setImages(
-//             images.map((image) =>
-//               image._id === id ? { ...image, url: response.data.url } : image
-//             )
-//           );
-//         })
-//         .catch((error) => console.error("Error editing image:", error));
-//     };
-//   };
-
-//   return (
-//     <div className="p-6 bg-gray-100 min-h-screen">
-//       {/* Title */}
-//       <h1 className="text-5xl font-bold text-gray-900 mb-6">Slider</h1>
-
-//       {/* Upload Button */}
-//       <div className="mb-6">
-//         <label className="block text-lg font-bold text-gray-900 mb-2">
-//           Upload Images
-//         </label>
-//         <input
-//           type="file"
-//            name="file"
-          
-//           accept="image/*"
-//           onChange={handleUpload}
-//           className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-//         />
-//         {newUploads.length > 0 && (
-//           <button
-//             onClick={handleSubmitUploads}
-//             className="mt-4 px-4 py-2 bg-green-500 text-white font-medium rounded hover:bg-green-600"
-//           >
-//             Submit
-//           </button>
-//         )}
-//       </div>
-
-//       {/* Image Slider */}
-//       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-//         {images.map((image) => (
-//           <div
-//             key={image._id}
-//             className="relative bg-white shadow-md rounded-lg overflow-hidden"
-//           >
-//             {/* Image */}
-//             <img
-//               src={image.url}
-//               alt="Uploaded"
-//               className="w-full h-64 object-cover"
-//             />
-
-//             {/* Action Buttons */}
-//             <div className="absolute top-2 right-2 flex space-x-2">
-//               <button
-//                 onClick={() => handleEdit(image._id)}
-//                 className="px-3 py-1 bg-yellow-500 text-white text-sm font-medium rounded hover:bg-yellow-600"
-//               >
-//                 Edit
-//               </button>
-//               <button
-//                 onClick={() => handleDelete(image._id)}
-//                 className="px-3 py-1 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600"
-//               >
-//                 Delete
-//               </button>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-
-//       {/* Hidden File Input for Editing */}
-//       <input
-//         ref={fileInputRef}
-//         type="imageUrl"
-//         accept="image/*"
-//         className="hidden"
-//       />
-//     </div>
-//   );
-// };
-
-// export default Settings;
-
-
-
-
-
-
-
-
-
-
-
-// import { useState } from "react";
-
-// const Settings = () => {
-//   const [images, setImages] = useState([]);
-
-//   // Handle Image Upload
-//   const handleUpload = (event) => {
-//     const files = Array.from(event.target.files);
-//     const newImages = files.map((file) => ({
-//       id: Date.now() + Math.random(), // Unique ID
-//       url: URL.createObjectURL(file),
-//     }));
-//     setImages([...images, ...newImages]);
-//   };
-
-//   // Handle Delete Image
-//   const handleDelete = (id) => {
-//     setImages(images.filter((image) => image.id !== id));
-//   };
-
-//   // Handle Edit Image (Placeholder for future functionality)
-//   const handleEdit = (id) => {
-//     alert(`Edit functionality for image ID: ${id} is not implemented yet.`);
-//   };
-
-//   return (
-//     <div className="p-6 bg-gray-100 min-h-screen">
-//       {/* Title */}
-//       <h1 className="text-5xl font-bold text-gray-900 mb-6 ">Slider </h1>
-
-//       {/* Upload Button */}
-//       <div className="mb-6">
-//         <label className="block text-lg font-bold text-gray-900 mb-2">
-//           Upload Images
-//         </label>
-//         <input
-//           type="file"
-//           multiple
-//           accept="image/*"
-//           onChange={handleUpload}
-//           className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-//         />
-//       </div>
-
-//       {/* Image Slider */}
-//       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-//         {images.map((image) => (
-//           <div
-//             key={image.id}
-//             className="relative bg-white shadow-md rounded-lg overflow-hidden"
-//           >
-//             {/* Image */}
-//             <img
-//               src={image.url}
-//               alt="Uploaded"
-//               className="w-full h-64 object-cover"
-//             />
-
-//             {/* Action Buttons */}
-//             <div className="absolute top-2 right-2 flex space-x-2">
-//               <button
-//                 onClick={() => handleEdit(image.id)}
-//                 className="px-3 py-1 bg-yellow-500 text-white text-sm font-medium rounded hover:bg-yellow-600"
-//               >
-//                 Edit
-//               </button>
-//               <button
-//                 onClick={() => handleDelete(image.id)}
-//                 className="px-3 py-1 bg-red-500 text-white text-sm font-medium rounded hover:bg-red-600"
-//               >
-//                 Delete
-//               </button>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Settings;
